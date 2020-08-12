@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Processing geolocation and time-series data using modern python</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h3>Processing geolocation and time-series data using modern python</h3>
+				<p>Nick Romano, KCI Technologies</p>
+			</section>
+			<section data-markdown>
+				### Outline
+				1. Definitions
+				2. Overview of the SciPy Python Stack
+				4. Example: Applying scipy to analyze a time-series location data
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Definitions</h3>
+				<!-- <h4>Geolocation Data</h4>
+				<ul>
+					<li>Data refering to the physical location of something</li>
+				</ul>
+				<img src="../pirate-map.jpg" style="height: auto; width:500px" />
+				<footer style="font-size: 12px">image from www.thefire.org</footer>
+			</section> -->
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Definitions</h3>
+				<h4>Time-series data</h4>
+				<ul>
+					<li>A series of data points indexed in time order</li>
+				</ul>
+				<img src="../time-series-data.png" style="height: auto; width:500px" />
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Definitions</h3>
+				<h4>Time-series geolocation data</h4>
+				<ul>
+					<li>A dataset refering to the location of something over time</li>
+				</ul>
+				<img src="../mapped-time-series-geolocation-data.png" style="height: auto; width:700px" />
+			</section>
+			<section style="text-align: center !important;">
+				<img src="../time-series-geolocation-data.png" style="height: auto; width:500px" />
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Definitions</h3>
+				<h4>Network</h4>
+				<ul>
+					<li>A set of nodes and edges</li>
+				</ul>
+				<iframe src="../graph.html" style="height:960px; width:500px"></iframe>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Networks</h3>
+				<h4>Digital Networks</h4>
+				<ul>
+					<li>Communications Network</li>
+					<li>Social Network</li>
+				</ul>
+				<br>
+				<h4>Physical Networks</h4>
+				<ul>
+					<li>Transportation Network (roads, sidewalks, airways)</li>
+					<li>Cardovascular Network</li>
+					<li>Utility Network</li>
+					<li>(Physical) Social Network, i.e. a dinner party</li>
+				</ul>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Analyzing Time-series data within networks ... Using Python!</h3>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>The SciPy stack</h3>
+				<img src="../stack-circle.png" style="height: 500px" />
+			</section>
+			<section style="text-align: left !important;">
+				<h3>The SciPy stack</h3>
+				<ul>
+					<li>Numpy
+						<ul>
+							<li>library that places data within optimized arrays and provides apis for simple array math and slicing
+							</li>
+						</ul>
+					</li>
+					<li>Pandas
+						<ul>
+							<li>Aggregates data into dataframes and abstracts away much of numpys complexity</li>
+						</ul>
+					</li>
+					<li>iPython / Jupyter / matplotlib
+						<ul>
+							<li>tldr; Jupyter notebooks and widgets</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Let's apply SciPy to solve a problem</h3>
+				<ul>
+					<li><q>Given the GPS Tracts of a snow plow during a snow event, determine the number of laps it did along a
+							section of highway</q></li>
+					<li><q>How long did each lap take?</q></li>
+					<li>The points are provided via a JSON API and the vehicle pings every 30 seconds</li>
+				</ul>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Typical GIS Model Workflow</h3>
+				<ol>
+					<li>Create feature class from the points</li>
+					<li>convert points to polylines</li>
+					<li>use intersect....</li>
+					<li>....</li>
+					<li>>>????s</li>
+				</ol>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Take 2</h3>
+				<ol>
+					<li>Create feature class from the points</li>
+					<li>convert points to polylines by connecting vertexes in order of ascending time (I think I need arcpy now?)
+					</li>
+					<li>create a line the indicates stop/start of a "lap"</li>
+					<li>get the intersections of the point on that lap</li>
+					<li>but whats the time at intersection? can I get that?</li>
+					<li>>>????s</li>
+				</ol>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Raw Data</h3>
+				<ol>
+					<img src="../raw_data_table.png" style="height:500px; width: 1000px"></iframe>
+				</ol>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Raw Data (Mapped)</h3>
+					<image src="../map_data_code.png" height=215 width="auto"/>
+					<iframe src="../raw_gps.html" style="height:500px; width: 1000px"></iframe>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Trying to connect the lines</h3>
+				<ol>
+					<!-- <image src="../polyline_code.png" style="height: 170"></image> -->
+					<iframe src="../not-smart-lines.html" style="height:500px; width: 1000px"></iframe>
+				</ol>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>OK... so we need to connect this data to a network, so that it matches a standard form</h3>
+			</section>
+			<section style="text-align: left !important;">
+				<h3>Open Street Map and OSRM</h3>
+				<image src="../osrm.png" style="height: 170"></image>
+				<image src="../osm.jpeg" style="height: 170"></image>
+				<br>
+				<ul>
+					<li><a>http://project-osrm.org/<a></a></li>
+					<li>A free routing engine that works off of open street map data</li>
+					<li>They provide docker images that can easily be spun up in the cloud by someone who doesn't know docker or
+						OSM (me)</li>
+				</ul>
+			</section>
+			<!-- <section style="text-align: left !important;">
+				<h3>So we'll use python to package up our data and ship it to OSRM which will map-match it to the network...
+				</h3>
+				<pre><code data-trim>
+					def map_matcher(self, df: pd.DataFrame):
+						# format data to create request parameters
+						df = df.assign(coord_str='')
+						df.coord_str = df.lon.astype(str) + "," + df.lat.astype(str)
+						coords = ";".join(df.coord_str)
+						indexes = ";".join(np.arange(len(df)).astype('str'))
+						df = df.assign(timestamp_string=df.timestamp.astype(str))
+						times = ";".join(df.timestamp_string)
+						indexes = ";".join([str(10) for x in range(0, len(df))])
+		
+						# request the data
+						req = requests.get(
+								f"{self.match_url}{coords}?timestamps={times}&radiuses={indexes}"
+								f"&geometries=geojson&overview=full&gaps=ignore&tidy=true")
+						resp_data = req.json()
+	
+						return MatchResult(df, resp_data)
+						</code></pre>
+			</section> -->
+			<section style="text-align: left !important;">
+				<h3>Map Matching</h3>
+				<ul>
+					<li>Blue=raw GPS</li>
+					<li>Red=Matched GPS</li>
+					<li>Light Blue Line=OSM Road Network</li>
+				</ul>
+				<iframe src="../map-matched.html" style="height:500px; width: 1000px"></iframe>
+			</section>
+			<section>
+				<h3>Results</h3>
+				<table style="font-size: 32px;">
+					<thead><tr class="tableizer-firstrow"><th>time</th><th>route_name</th><th>time_deltas</th></tr></thead><tbody>
+					 <tr><td>01/18/2020 08:52:40 AM</td><td>NC West</td><td>NA</td></tr>
+					 <tr><td>01/18/2020 09:54:28 AM</td><td>NC West</td><td>01:01:48</td></tr>
+					 <tr><td>01/18/2020 11:03:41 AM</td><td>NC West</td><td>01:09:13</td></tr>
+					 <tr><td>01/18/2020 01:00:41 PM</td><td>NC West</td><td>01:57:00</td></tr>
+					 <tr><td>01/18/2020 01:59:11 PM</td><td>NC West</td><td>00:58:30</td></tr>
+					 <tr><td>01/18/2020 02:36:46 PM</td><td>NC West</td><td>00:37:35</td></tr>
+					</tbody></table>
+			</section>
+			<section>
+				<h3>Scaling this model</h3>
+				<ul>
+					<li>We run this model against all heavy duty vehicles along mapped routes after each snow event</li>
+					<li>one event ends up processing over a million points</li>
+					<li>It runs through all vehicles in less than 5 minutes, and a lot of the time is just downloading the data from the vehicles API</li>
+					<li>This model is completely license-free and could be deployed as microservices in the cloud and run continuously</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Thanks!!</h3>
+				<p>Email: Nicholas.Romano@kci.com</p>
+			</section>
+
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
